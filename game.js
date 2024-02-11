@@ -183,9 +183,4 @@ document.addEventListener('DOMContentLoaded', () => {
       menu.style.display = 'block';
     }
   });
-
-
-  document.getElementById('validateButton').addEventListener('click', () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Prêt pour une nouvelle spirale
-  });
 });
