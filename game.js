@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function startDrawing(e) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Prêt pour une nouvelle spirale
     drawing = true;
     path = [];
     penaltyLength = 0;
