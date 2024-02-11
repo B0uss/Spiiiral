@@ -1,31 +1,46 @@
 #burgerMenuButton {
-    display: none; /* Masqué par défaut, affiché seulement sur petits écrans */
+    display: none; /* Masqué par défaut, sera affiché sur petits écrans */
     cursor: pointer;
-    /* Autres styles pour le bouton ici */
+    position: absolute;
+    top: 10px; /* Ajustez selon votre mise en page */
+    left: 10px; /* Ajustez selon votre mise en page */
+    z-index: 100; /* S'assure que le bouton est visible au-dessus des autres éléments */
 }
 
 .menu {
     display: none; /* Le menu est masqué par défaut */
-    /* Styles pour le menu déroulant */
+    position: fixed; /* Utilise position fixed pour le menu sur petits écrans */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8); /* Fond semi-transparent */
+    color: white; /* Couleur du texte dans le menu */
+    z-index: 99; /* S'assure que le menu est au-dessus du canvas mais sous le bouton */
+    text-align: center; /* Centre le texte dans le menu */
+    padding-top: 50px; /* Espace pour le contenu du menu */
 }
 
-/* Media query pour petits écrans */
 @media (max-width: 600px) {
     #burgerMenuButton {
-        display: block; /* Afficher le bouton sur petits écrans */
+        display: block; /* Affiche le bouton sur petits écrans */
+    }
+    #highScoresMenu {
+        display: none; /* Assure que le menu est masqué par défaut, même sur petits écrans */
     }
     #highScores {
-        display: none; /* Masquer les high scores par défaut sur petits écrans */
+        display: block; /* Les high scores sont visibles lorsque le menu est ouvert */
     }
 }
 
 body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 20px;
-      }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
 
-      #gameCanvas {
-        border: 1px solid #000;
-      }
+#gameCanvas {
+    border: 1px solid #000;
+    margin-top: 20px; /* Assure un espace entre le bouton/menu et le canvas */
+}
