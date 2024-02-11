@@ -38,3 +38,10 @@ body {
     border: 1px solid #000;
     margin-top: 20px; /* Assure un espace entre le bouton/menu et le canvas */
 }
+
+#score {
+    position: fixed;
+    bottom: 5vh; /* Donne un peu d'espace du bas */
+    left: 50%;
+    transform: translateX(-50%);
+}
