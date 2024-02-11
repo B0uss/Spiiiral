@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         alert('Spirale non valide! Des segments se croisent.');
       }
-     
+
     }
   }
 
@@ -178,11 +178,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('burgerMenuButton').addEventListener('click', function() {
     var menu = document.getElementById('highScoresMenu');
     if (menu.style.display === 'block') {
-        menu.style.display = 'none';
+      menu.style.display = 'none';
     } else {
-        menu.style.display = 'block';
+      menu.style.display = 'block';
     }
-});
+  });
 
 
   document.getElementById('validateButton').addEventListener('click', () => {
