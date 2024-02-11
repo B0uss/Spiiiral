@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         alert('Spirale non valide! Des segments se croisent.');
       }
-      ctx.clearRect(0, 0, canvas.width, canvas.height); // Nettoie le canvas pour le prochain dessin
+     
     }
   }
 
