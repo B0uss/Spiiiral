@@ -1,36 +1,23 @@
 <!DOCTYPE html>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
 <html lang="fr">
-
-  <head>
+<head>
     <meta charset="UTF-8">
     <title>Spirale Game</title>
-    <style>
-      body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 20px;
-      }
-
-      #gameCanvas {
-        border: 1px solid #000;
-      }
-
-    </style>
-  </head>
-
-  <body>
-    <canvas id="gameCanvas" width="600" height="600"></canvas>
-    <button id="validateButton">Clear</button>
-    <div id="score">Score: 0</div>
-    <script src="game.js"></script>
-    <div id="highScores">
-      <h2>High Scores</h2>
-      <ul id="highScoresList"></ul>
-      <button id="clearHighScoresButton">Clear High Scores</button>
+    <link rel="stylesheet" href="style.css"> <!-- Assurez-vous d'avoir votre fichier CSS lié ici -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <button id="burgerMenuButton">☰</button>
+    <div id="highScoresMenu" class="menu">
+        <div id="highScores">
+            <h2>High Scores</h2>
+            <ul id="highScoresList"></ul>
+            <button id="clearHighScoresButton">Clear High Scores</button>
+        </div>
     </div>
-  </body>
-
+    <canvas id="gameCanvas" width="600" height="600"></canvas>
+    <div id="score">Score: 0</div>
+    <button id="validateButton">Valider</button>
+    <script src="script.js"></script> <!-- Assurez-vous d'avoir votre fichier JavaScript lié ici -->
+</body>
 </html>
