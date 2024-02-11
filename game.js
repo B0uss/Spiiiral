@@ -174,6 +174,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('clearHighScoresButton').addEventListener('click', clearHighScores);
 
+  document.getElementById('burgerMenuButton').addEventListener('click', function() {
+    var menu = document.getElementById('highScoresMenu');
+    if (menu.style.display === 'block') {
+        menu.style.display = 'none';
+    } else {
+        menu.style.display = 'block';
+    }
+});
+
 
   document.getElementById('validateButton').addEventListener('click', () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Prêt pour une nouvelle spirale
