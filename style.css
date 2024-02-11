@@ -1,0 +1,20 @@
+#burgerMenuButton {
+    display: none; /* Masqué par défaut, affiché seulement sur petits écrans */
+    cursor: pointer;
+    /* Autres styles pour le bouton ici */
+}
+
+.menu {
+    display: none; /* Le menu est masqué par défaut */
+    /* Styles pour le menu déroulant */
+}
+
+/* Media query pour petits écrans */
+@media (max-width: 600px) {
+    #burgerMenuButton {
+        display: block; /* Afficher le bouton sur petits écrans */
+    }
+    #highScores {
+        display: none; /* Masquer les high scores par défaut sur petits écrans */
+    }
+}
