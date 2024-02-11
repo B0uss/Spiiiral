@@ -1,36 +1,30 @@
 #burgerMenuButton {
-    display: none; /* Masqué par défaut, sera affiché sur petits écrans */
+    display: block; /* Toujours affiché */
     cursor: pointer;
     position: absolute;
-    top: 10px; /* Ajustez selon votre mise en page */
-    left: 10px; /* Ajustez selon votre mise en page */
-    z-index: 100; /* S'assure que le bouton est visible au-dessus des autres éléments */
+    top: 10px;
+    left: 10px;
+    z-index: 100; /* S'assure que le bouton est au-dessus du canvas */
 }
 
-.menu {
-    display: none; /* Le menu est masqué par défaut */
-    position: fixed; /* Utilise position fixed pour le menu sur petits écrans */
+#highScoresMenu {
+    display: none; /* Caché par défaut */
+    position: fixed; /* Utilisez fixed pour couvrir toute la page */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.8); /* Fond semi-transparent */
-    color: white; /* Couleur du texte dans le menu */
-    z-index: 99; /* S'assure que le menu est au-dessus du canvas mais sous le bouton */
-    text-align: center; /* Centre le texte dans le menu */
-    padding-top: 50px; /* Espace pour le contenu du menu */
+    color: white;
+    z-index: 99; /* S'assure que le menu est au-dessus du canvas */
+    text-align: center;
+    padding-top: 50px;
 }
 
-@media (max-width: 600px) {
-    #burgerMenuButton {
-        display: block; /* Affiche le bouton sur petits écrans */
-    }
-    #highScoresMenu {
-        display: none; /* Assure que le menu est masqué par défaut, même sur petits écrans */
-    }
-    #highScores {
-        display: block; /* Les high scores sont visibles lorsque le menu est ouvert */
-    }
+#highScoresList {
+    list-style-type: none; /* Supprime les puces */
+    padding: 0; /* Supprime le padding par défaut pour aligner correctement les éléments à gauche */
+    margin: 0; /* Optionnel : Supprime la marge par défaut si nécessaire */
 }
 
 body {
