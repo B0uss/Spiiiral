@@ -18,3 +18,14 @@
         display: none; /* Masquer les high scores par défaut sur petits écrans */
     }
 }
+
+body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      #gameCanvas {
+        border: 1px solid #000;
+      }
