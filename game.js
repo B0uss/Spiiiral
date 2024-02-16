@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     y: canvas.height / 2
   };
   const tolerance = 5; // Tolérance en pixels
+  const toleranceCenter = 15; // Tolérance en pixels
 
   function getEventPosition(e) {
     if (e.touches) {
@@ -27,15 +28,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function drawCenter() {
+    ctx.beginPath();
+    ctx.arc(center.x, center.y, 5, 0, 2 * Math.PI, false); // Dessine un petit cercle pour marquer le centre
+    ctx.fillStyle = 'red';
+    ctx.fill();
+  }
+
   function startDrawing(e) {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Prêt pour une nouvelle spirale
-    drawing = true;
-    path = [];
-    penaltyLength = 0;
+    drawCenter(); // Assurez-vous que le centre est toujours visible
     const pos = getEventPosition(e);
-    path.push(pos);
+    const distance = distanceFromCenter(pos);
+    if (distance > toleranceCenter) { // Utilisez 'tolerance' ou une autre valeur limite spécifique
+        drawing = false; // Empêche de commencer à dessiner si trop loin
+        alert("Veuillez commencer plus près du centre.");
+        return; // Sort de la fonction
+    }
+    drawing = true;
+    path = [pos];
+    penaltyLength = 0;
     startTime = Date.now();
-  }
+}
 
   function draw(e) {
     if (!drawing) return;
