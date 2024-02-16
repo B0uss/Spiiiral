@@ -43,6 +43,7 @@ body {
     position: fixed;
     bottom: 5vh; /* Donne un peu d'espace du bas */
     left: 50%;
+    font-size: 24px;
     transform: translateX(-50%);
 }
 
@@ -63,10 +64,16 @@ body {
     text-align: center;
     min-width: 200px;
     display: inline-block;
-    animation: fadeOut 4s forwards;
+    animation: fadeOut 6s forwards;
 }
 
 @keyframes fadeOut {
     from { opacity: 1; }
     to { opacity: 0; }
+}
+
+@media (max-width: 600px) {
+    #score {
+        font-size: 16px; /* Taille de police réduite pour les écrans plus petits */
+    }
 }
