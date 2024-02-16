@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     y: canvas.height / 2
   };
   const tolerance = 4; // Tolérance en pixels
-  const toleranceCenter = 15; // Tolérance en pixels
+  const toleranceCenter = 30; // Tolérance en pixels
 
   function getEventPosition(e) {
     if (e.touches) {
