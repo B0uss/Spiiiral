@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     y: canvas.height / 2
   };
   const tolerance = 4; // Tolérance en pixels
-  const toleranceCenter = 30; // Tolérance en pixels
+  const toleranceCenter = 20; // Tolérance en pixels
 
   function getEventPosition(e) {
     if (e.touches) {
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         toastMessage.addEventListener('animationend', () => {
             toastMessage.remove();
         });
-    }, 4000);
+    }, 5000);
   }
 
   function drawCenter() {
