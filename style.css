@@ -74,6 +74,6 @@ body {
 
 @media (max-width: 600px) {
     #score {
-        font-size: 16px; /* Taille de police réduite pour les écrans plus petits */
+        font-size: 10px; /* Taille de police réduite pour les écrans plus petits */
     }
 }
