@@ -28,6 +28,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function showToast(message) {
+    const toastContainer = document.getElementById('toastContainer');
+    const toastMessage = document.createElement('div');
+    toastMessage.classList.add('toastMessage');
+    toastMessage.textContent = message;
+    toastContainer.appendChild(toastMessage);
+
+    // Supprimer le toast après 4 secondes
+    setTimeout(() => {
+        toastMessage.classList.add('fadeOut');
+        toastMessage.addEventListener('animationend', () => {
+            toastMessage.remove();
+        });
+    }, 4000);
+  }
+
   function drawCenter() {
     ctx.beginPath();
     ctx.arc(center.x, center.y, 3, 0, 2 * Math.PI, false); // Dessine un petit cercle pour marquer le centre
@@ -42,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const distance = distanceFromCenter(pos);
     if (distance > toleranceCenter) { // Utilisez 'tolerance' ou une autre valeur limite spécifique
         drawing = false; // Empêche de commencer à dessiner si trop loin
-        alert("Veuillez commencer plus près du centre.");
+        showToast("Veuillez commencer plus près du centre.");
         return; // Sort de la fonction
     }
     drawing = true;
@@ -84,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateHighScores(finalScore);
         displayHighScores();
       } else {
-        alert('Spirale non valide! Des segments se croisent.');
+        showToast('Spirale non valide! Des segments se croisent.');
       }
 
     }
