@@ -30,8 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function drawCenter() {
     ctx.beginPath();
-    ctx.arc(center.x, center.y, 5, 0, 2 * Math.PI, false); // Dessine un petit cercle pour marquer le centre
-    ctx.fillStyle = 'red';
+    ctx.arc(center.x, center.y, 3, 0, 2 * Math.PI, false); // Dessine un petit cercle pour marquer le centre
+    ctx.fillStyle = 'black';
     ctx.fill();
   }
 
