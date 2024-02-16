@@ -49,7 +49,7 @@ body {
 
 #toastContainer {
     position: fixed;
-    bottom: 20px;
+    top: 20px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10000;
@@ -59,7 +59,7 @@ body {
     background-color: rgba(60, 60, 60, 0.9);
     color: #fff;
     padding: 10px 20px;
-    margin-top: 10px;
+    margin-bottom: 10px;
     border-radius: 5px;
     text-align: center;
     min-width: 200px;
@@ -74,6 +74,6 @@ body {
 
 @media (max-width: 600px) {
     #score {
-        font-size: 10px; /* Taille de police réduite pour les écrans plus petits */
+        font-size: 12px; /* Taille de police réduite pour les écrans plus petits */
     }
 }

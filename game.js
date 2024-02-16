@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     x: canvas.width / 2,
     y: canvas.height / 2
   };
-  const tolerance = 3; // Tolérance en pixels
+  const tolerance = 4; // Tolérance en pixels
   const toleranceCenter = 15; // Tolérance en pixels
 
   function getEventPosition(e) {
