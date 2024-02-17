@@ -67,21 +67,40 @@ document.addEventListener('DOMContentLoaded', () => {
     startTime = Date.now();
 }
 
-  function draw(e) {
-    if (!drawing) return;
-    const pos = getEventPosition(e);
-    if (!isPointWithinBounds(pos)) return;
-    const lastPoint = path[path.length - 1];
-    const newDistance = distanceFromCenter(pos);
-    const lastDistance = distanceFromCenter(lastPoint);
-    if (newDistance < lastDistance - tolerance) {
-      drawSegment(lastPoint, pos, 'red');
-      penaltyLength += Math.sqrt((pos.x - lastPoint.x) ** 2 + (pos.y - lastPoint.y) ** 2);
-    } else {
-      drawSegment(lastPoint, pos, 'black');
+let initialRate = 0.5; // Cela suppose que vous augmentez de 0.5 unité par pas au début.
+let rateIncrease = 0.01; // Chaque pas augmente le taux d'augmentation de 0.01.
+
+function calculateExpectedDistance(step) {
+    // Calcul de la distance attendue en utilisant une série qui simule une augmentation linéaire
+    let expectedDistance = 0;
+    let currentRate = initialRate;
+
+    for (let i = 0; i < step; i++) {
+        expectedDistance += currentRate;
+        currentRate += rateIncrease; // Augmente le taux d'augmentation à chaque pas
     }
-    path.push(pos);
+
+    return expectedDistance;
+}
+
+function draw(e) {
+  if (!drawing) return;
+  const pos = getEventPosition(e);
+
+  if (!isPointWithinBounds(pos)) return;
+
+  const newDistance = distanceFromCenter(pos);
+  const step = path.length; // Utilise 'path.length' comme approximation du nombre de pas
+  const expectedDistance = calculateExpectedDistance(step);
+
+  // Logique pour décider de la couleur du segment
+  if (Math.abs(newDistance - centerDistance - expectedDistance) > tolerance) {
+      drawSegment(lastPoint, pos, 'red');
+  } else {
+      drawSegment(lastPoint, pos, 'black');
   }
+  path.push(pos);
+}
 
   function stopDrawing() {
     if (drawing) {
