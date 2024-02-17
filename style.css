@@ -77,8 +77,8 @@ body {
 
 @media (max-width: 600px) {
     #score {
-        font-size: 10px; /* Taille de police réduite pour les écrans plus petits */
-        top: 2vh;
+        font-size: 18px; /* Taille de police réduite pour les écrans plus petits */
+        top: 1vh;
         bottom:auto;
     }
     .toastMessage {
