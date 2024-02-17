@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     x: canvas.width / 2,
     y: canvas.height / 2
   };
-  const tolerance = 5; // Tolérance en pixels
+  const tolerance = 4; // Tolérance en pixels
+  const toleranceCenter = 20; // Tolérance en pixels
 
   function getEventPosition(e) {
     if (e.touches) {
@@ -27,31 +28,79 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function startDrawing(e) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Prêt pour une nouvelle spirale
-    drawing = true;
-    path = [];
-    penaltyLength = 0;
-    const pos = getEventPosition(e);
-    path.push(pos);
-    startTime = Date.now();
+  function showToast(message) {
+    const toastContainer = document.getElementById('toastContainer');
+    const toastMessage = document.createElement('div');
+    toastMessage.classList.add('toastMessage');
+    toastMessage.textContent = message;
+    toastContainer.appendChild(toastMessage);
+
+    // Supprimer le toast après 4 secondes
+    setTimeout(() => {
+        toastMessage.classList.add('fadeOut');
+        toastMessage.addEventListener('animationend', () => {
+            toastMessage.remove();
+        });
+    }, 5000);
   }
 
-  function draw(e) {
-    if (!drawing) return;
-    const pos = getEventPosition(e);
-    if (!isPointWithinBounds(pos)) return;
-    const lastPoint = path[path.length - 1];
-    const newDistance = distanceFromCenter(pos);
-    const lastDistance = distanceFromCenter(lastPoint);
-    if (newDistance < lastDistance - tolerance) {
-      drawSegment(lastPoint, pos, 'red');
-      penaltyLength += Math.sqrt((pos.x - lastPoint.x) ** 2 + (pos.y - lastPoint.y) ** 2);
-    } else {
-      drawSegment(lastPoint, pos, 'black');
-    }
-    path.push(pos);
+  function drawCenter() {
+    ctx.beginPath();
+    ctx.arc(center.x, center.y, 3, 0, 2 * Math.PI, false); // Dessine un petit cercle pour marquer le centre
+    ctx.fillStyle = 'black';
+    ctx.fill();
   }
+
+  function startDrawing(e) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Prêt pour une nouvelle spirale
+    drawCenter(); // Assurez-vous que le centre est toujours visible
+    const pos = getEventPosition(e);
+    const distance = distanceFromCenter(pos);
+    if (distance > toleranceCenter) { // Utilisez 'tolerance' ou une autre valeur limite spécifique
+        drawing = false; // Empêche de commencer à dessiner si trop loin
+        showToast("Veuillez commencer plus près du centre.");
+        return; // Sort de la fonction
+    }
+    drawing = true;
+    path = [pos];
+    penaltyLength = 0;
+    startTime = Date.now();
+}
+
+let initialRate = 0.5; // Cela suppose que vous augmentez de 0.5 unité par pas au début.
+let rateIncrease = 0.01; // Chaque pas augmente le taux d'augmentation de 0.01.
+
+function calculateExpectedDistance(step) {
+    // Calcul de la distance attendue en utilisant une série qui simule une augmentation linéaire
+    let expectedDistance = 0;
+    let currentRate = initialRate;
+
+    for (let i = 0; i < step; i++) {
+        expectedDistance += currentRate;
+        currentRate += rateIncrease; // Augmente le taux d'augmentation à chaque pas
+    }
+
+    return expectedDistance;
+}
+
+function draw(e) {
+  if (!drawing) return;
+  const pos = getEventPosition(e);
+
+  if (!isPointWithinBounds(pos)) return;
+
+  const newDistance = distanceFromCenter(pos);
+  const step = path.length; // Utilise 'path.length' comme approximation du nombre de pas
+  const expectedDistance = calculateExpectedDistance(step);
+
+  // Logique pour décider de la couleur du segment
+  if (Math.abs(newDistance - centerDistance - expectedDistance) > tolerance) {
+      drawSegment(lastPoint, pos, 'red');
+  } else {
+      drawSegment(lastPoint, pos, 'black');
+  }
+  path.push(pos);
+}
 
   function stopDrawing() {
     if (drawing) {
@@ -70,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateHighScores(finalScore);
         displayHighScores();
       } else {
-        alert('Spirale non valide! Des segments se croisent.');
+        showToast('Spirale non valide! Des segments se croisent.');
       }
 
     }
@@ -182,10 +231,5 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       menu.style.display = 'block';
     }
-  });
-
-
-  document.getElementById('validateButton').addEventListener('click', () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Prêt pour une nouvelle spirale
   });
 });
