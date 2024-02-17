@@ -35,8 +35,9 @@ body {
 }
 
 #gameCanvas {
+    display: block;
     border: 1px solid #000;
-    margin-top: 20px; /* Assure un espace entre le bouton/menu et le canvas */
+    margin: 20px auto; /* Assure un espace entre le bouton/menu et le canvas */
 }
 
 #score {
