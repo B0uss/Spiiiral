@@ -82,4 +82,7 @@ body {
     .toastMessage {
         font-size: 12px;
     }
+    #gameCanvas {
+        margin-top: 20px; /* Réduit l'espace au-dessus du canvas sur petits écrans */
+    }
 }
