@@ -42,6 +42,7 @@ body {
 
 #score {
     position: fixed;
+    pointer-events: none;
     bottom: 5vh; /* Donne un peu d'espace du bas */
     left: 50%;
     font-size: 24px;
@@ -81,8 +82,5 @@ body {
     }
     .toastMessage {
         font-size: 12px;
-    }
-    #gameCanvas {
-        margin-top: 20px; /* Réduit l'espace au-dessus du canvas sur petits écrans */
     }
 }
