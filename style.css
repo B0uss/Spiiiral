@@ -79,6 +79,7 @@ body {
     #score {
         font-size: 10px; /* Taille de police réduite pour les écrans plus petits */
         top: 2vh;
+        bottom:auto;
     }
     .toastMessage {
         font-size: 12px;
