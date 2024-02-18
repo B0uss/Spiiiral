@@ -141,15 +141,25 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function validateNoIntersection(path) {
-    for (let i = 0; i < path.length - 3; i++) { // -3 pour éviter de vérifier avec le segment directement adjacent
-      for (let j = i + 2; j < path.length - 1; j++) {
-        if (segmentsIntersect(path[i], path[i + 1], path[j], path[j + 1])) {
-          return false;
+    for (let i = 0; i < path.length - 3; i++) {
+        for (let j = i + 2; j < path.length - 1; j++) {
+            // Calcule la distance des points de fin de segment au centre
+            let distStartSegment = distanceFromCenter(path[i]);
+            let distEndSegment = distanceFromCenter(path[j]);
+
+            // Ignore la vérification si l'un des points de segment est trop proche du centre
+            if (distStartSegment <= toleranceCenter || distEndSegment <= toleranceCenter) {
+                continue;
+            }
+
+            if (segmentsIntersect(path[i], path[i + 1], path[j], path[j + 1])) {
+                return false;
+            }
         }
-      }
     }
     return true;
-  }
+}
+
 
   function displayHighScores() {
     let highScores = JSON.parse(localStorage.getItem('highScores')) || [];
@@ -194,16 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sauvegarder les high scores mis à jour dans localStorage
     localStorage.setItem('highScores', JSON.stringify(highScores));
   }
-
-  function resizeCanvas() {
-    const maxWidth = Math.min(window.innerWidth, 600); // Limite la largeur à 600px ou moins si l'écran est plus petit
-    canvas.width = maxWidth;
-    canvas.height = maxWidth * (canvas.height / canvas.width); // Conserve les proportions
-}
-
-window.addEventListener('load', resizeCanvas);
-window.addEventListener('resize', resizeCanvas);
-
 
   canvas.addEventListener('mousedown', startDrawing);
   canvas.addEventListener('mousemove', draw);
