@@ -194,6 +194,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sauvegarder les high scores mis à jour dans localStorage
     localStorage.setItem('highScores', JSON.stringify(highScores));
   }
+
+  function resizeCanvas() {
+    const maxWidth = Math.min(window.innerWidth, 600); // Limite la largeur à 600px ou moins si l'écran est plus petit
+    canvas.width = maxWidth;
+    canvas.height = maxWidth * (canvas.height / canvas.width); // Conserve les proportions
+}
+
+window.addEventListener('load', resizeCanvas);
+window.addEventListener('resize', resizeCanvas);
+
+
   canvas.addEventListener('mousedown', startDrawing);
   canvas.addEventListener('mousemove', draw);
   canvas.addEventListener('mouseup', stopDrawing);
