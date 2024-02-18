@@ -35,6 +35,53 @@ body {
 }
 
 #gameCanvas {
+    /*display: block;*/
     border: 1px solid #000;
-    margin-top: 20px; /* Assure un espace entre le bouton/menu et le canvas */
+    margin: 20px auto; /* Assure un espace entre le bouton/menu et le canvas */
+}
+
+#score {
+    position: fixed;
+    pointer-events: none;
+    bottom: 5vh; /* Donne un peu d'espace du bas */
+    left: 50%;
+    font-size: 24px;
+    transform: translateX(-50%);
+}
+
+#toastContainer {
+    pointer-events: none;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000;
+}
+
+.toastMessage {
+    background-color: rgba(60, 60, 60, 0.9);
+    color: #fff;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-align: center;
+    min-width: 200px;
+    display: inline-block;
+    animation: fadeOut 5s forwards;
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@media (max-width: 600px) {
+    #score {
+        font-size: 14px; /* Taille de police réduite pour les écrans plus petits */
+        top: 1vh;
+        bottom:auto;
+    }
+    .toastMessage {
+        font-size: 12px;
+    }
 }

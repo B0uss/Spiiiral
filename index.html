@@ -2,12 +2,15 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Spirale Game</title>
+    <title>Spiiiral</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/resources/apple-touch-icon.png">
+    <link rel="icon" href="/resources/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css"> <!-- Assurez-vous que le fichier CSS contient les ajustements nécessaires -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
     <button id="burgerMenuButton">☰</button>
+    <div id="toastContainer"></div>
     <div id="highScoresMenu" class="menu">
         <!-- Conteneur pour le menu des high scores, qui s'affichera par-dessus le canvas sur les petits écrans -->
         <div id="highScores">
@@ -18,7 +21,6 @@
     </div>
     <canvas id="gameCanvas" width="600" height="600"></canvas>
     <div id="score">Score: 0</div>
-    <button id="validateButton">Valider</button>
     <script src="game.js"></script> <!-- Assurez-vous que le fichier JavaScript implémente la logique décrite -->
 </body>
 </html>

@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     x: canvas.width / 2,
     y: canvas.height / 2
   };
-  const tolerance = 5; // Tolérance en pixels
+  const tolerance = 4; // Tolérance en pixels
+  const toleranceCenter = 20; // Tolérance en pixels
 
   function getEventPosition(e) {
     if (e.touches) {
@@ -27,15 +28,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function showToast(message) {
+    const toastContainer = document.getElementById('toastContainer');
+    const toastMessage = document.createElement('div');
+    toastMessage.classList.add('toastMessage');
+    toastMessage.textContent = message;
+    toastContainer.appendChild(toastMessage);
+
+    // Supprimer le toast après 4 secondes
+    setTimeout(() => {
+        toastMessage.classList.add('fadeOut');
+        toastMessage.addEventListener('animationend', () => {
+            toastMessage.remove();
+        });
+    }, 5000);
+  }
+
+  function drawCenter() {
+    ctx.beginPath();
+    ctx.arc(center.x, center.y, 3, 0, 2 * Math.PI, false); // Dessine un petit cercle pour marquer le centre
+    ctx.fillStyle = 'black';
+    ctx.fill();
+  }
+
   function startDrawing(e) {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Prêt pour une nouvelle spirale
-    drawing = true;
-    path = [];
-    penaltyLength = 0;
+    drawCenter(); // Assurez-vous que le centre est toujours visible
     const pos = getEventPosition(e);
-    path.push(pos);
+    const distance = distanceFromCenter(pos);
+    if (distance > toleranceCenter) { // Utilisez 'tolerance' ou une autre valeur limite spécifique
+        drawing = false; // Empêche de commencer à dessiner si trop loin
+        showToast("Veuillez commencer plus près du centre.");
+        return; // Sort de la fonction
+    }
+    drawing = true;
+    path = [pos];
+    penaltyLength = 0;
     startTime = Date.now();
-  }
+}
 
   function draw(e) {
     if (!drawing) return;
@@ -70,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateHighScores(finalScore);
         displayHighScores();
       } else {
-        alert('Spirale non valide! Des segments se croisent.');
+        showToast('Spirale non valide! Des segments se croisent.');
       }
 
     }
@@ -111,15 +141,25 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function validateNoIntersection(path) {
-    for (let i = 0; i < path.length - 3; i++) { // -3 pour éviter de vérifier avec le segment directement adjacent
-      for (let j = i + 2; j < path.length - 1; j++) {
-        if (segmentsIntersect(path[i], path[i + 1], path[j], path[j + 1])) {
-          return false;
+    for (let i = 0; i < path.length - 3; i++) {
+        for (let j = i + 2; j < path.length - 1; j++) {
+            // Calcule la distance des points de fin de segment au centre
+            let distStartSegment = distanceFromCenter(path[i]);
+            let distEndSegment = distanceFromCenter(path[j]);
+
+            // Ignore la vérification si l'un des points de segment est trop proche du centre
+            if (distStartSegment <= toleranceCenter || distEndSegment <= toleranceCenter) {
+                continue;
+            }
+
+            if (segmentsIntersect(path[i], path[i + 1], path[j], path[j + 1])) {
+                return false;
+            }
         }
-      }
     }
     return true;
-  }
+}
+
 
   function displayHighScores() {
     let highScores = JSON.parse(localStorage.getItem('highScores')) || [];
@@ -164,6 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sauvegarder les high scores mis à jour dans localStorage
     localStorage.setItem('highScores', JSON.stringify(highScores));
   }
+
   canvas.addEventListener('mousedown', startDrawing);
   canvas.addEventListener('mousemove', draw);
   canvas.addEventListener('mouseup', stopDrawing);
@@ -182,10 +223,5 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       menu.style.display = 'block';
     }
-  });
-
-
-  document.getElementById('validateButton').addEventListener('click', () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Prêt pour une nouvelle spirale
   });
 });
